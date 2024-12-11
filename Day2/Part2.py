@@ -16,9 +16,21 @@ def is_safe(report):
     
     return is_increasing or is_decreasing
 
-safe_count = 0
-for report in reports:
+def is_safe_with_dampener(report):
     if is_safe(report):
-        safe_count += 1
+        return True
+    
+    for i in range(len(report)):
+        modified_report = report[:i] + report[i+1:]
+        if is_safe(modified_report):
+            return True
+    
+    return False
 
-print(f"Number of safe reports: {safe_count}")
+safe_count_with_dampener = 0
+for report in reports:
+    if is_safe_with_dampener(report):
+        safe_count_with_dampener += 1
+
+print(f"Number of safe reports with Problem Dampener: {safe_count_with_dampener}")
+
